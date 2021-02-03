@@ -5,15 +5,15 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/go-pg/pg/v10"
-	"github.com/go-pg/pg/v10/orm"
+	"github.com/keyro90/pg/v10"
+	"github.com/keyro90/pg/v10/orm"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/label"
 	"go.opentelemetry.io/otel/trace"
 )
 
-var tracer = otel.Tracer("github.com/go-pg/pg")
+var tracer = otel.Tracer("github.com/keyro90/pg")
 
 type queryOperation interface {
 	Operation() orm.QueryOp
@@ -79,7 +79,7 @@ func (h TracingHook) AfterQuery(ctx context.Context, evt *pg.QueryEvent) error {
 		query = query[:queryLimit]
 	}
 
-	fn, file, line := funcFileLine("github.com/go-pg/pg")
+	fn, file, line := funcFileLine("github.com/keyro90/pg")
 
 	attrs := make([]label.KeyValue, 0, 10)
 	attrs = append(attrs,

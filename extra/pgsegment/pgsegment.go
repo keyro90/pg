@@ -3,7 +3,7 @@ package pgsegment
 import (
 	"io"
 
-	"github.com/go-pg/pg/v10/pgjson"
+	"github.com/keyro90/pg/v10/pgjson"
 	"github.com/segmentio/encoding/json"
 )
 

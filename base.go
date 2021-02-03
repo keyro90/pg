@@ -8,10 +8,10 @@ import (
 	"go.opentelemetry.io/otel/label"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/go-pg/pg/v10/internal"
-	"github.com/go-pg/pg/v10/internal/pool"
-	"github.com/go-pg/pg/v10/orm"
-	"github.com/go-pg/pg/v10/types"
+	"github.com/keyro90/pg/v10/internal"
+	"github.com/keyro90/pg/v10/internal/pool"
+	"github.com/keyro90/pg/v10/orm"
+	"github.com/keyro90/pg/v10/types"
 )
 
 type baseDB struct {

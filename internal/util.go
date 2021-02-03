@@ -9,7 +9,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 )
 
-var tracer = otel.Tracer("github.com/go-pg/pg")
+var tracer = otel.Tracer("github.com/keyro90/pg")
 
 func Sleep(ctx context.Context, dur time.Duration) error {
 	return WithSpan(ctx, "time.Sleep", func(ctx context.Context, span trace.Span) error {

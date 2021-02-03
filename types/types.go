@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/go-pg/pg/v10/internal/pool"
+	"github.com/keyro90/pg/v10/internal/pool"
 )
 
 type Reader = pool.Reader

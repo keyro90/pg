@@ -14,11 +14,11 @@ import (
 	"github.com/jinzhu/inflection"
 	"github.com/vmihailenco/tagparser"
 
-	"github.com/go-pg/pg/v10/internal"
-	"github.com/go-pg/pg/v10/internal/pool"
-	"github.com/go-pg/pg/v10/pgjson"
-	"github.com/go-pg/pg/v10/types"
-	"github.com/go-pg/zerochecker"
+	"github.com/keyro90/pg/v10/internal"
+	"github.com/keyro90/pg/v10/internal/pool"
+	"github.com/keyro90/pg/v10/pgjson"
+	"github.com/keyro90/pg/v10/types"
+	"github.com/keyro90/zerochecker"
 )
 
 const (

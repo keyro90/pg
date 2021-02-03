@@ -18,8 +18,8 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/stretchr/testify/require"
 
-	"github.com/go-pg/pg/v10"
-	"github.com/go-pg/pg/v10/orm"
+	"github.com/keyro90/pg/v10"
+	"github.com/keyro90/pg/v10/orm"
 )
 
 func init() {

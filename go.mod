@@ -1,9 +1,9 @@
-module github.com/go-pg/pg/v10
+module github.com/keyro90/pg/v10
 
 go 1.11
 
 require (
-	github.com/go-pg/zerochecker v0.2.0
+	github.com/keyro90/zerochecker v0.2.0
 	github.com/golang/protobuf v1.4.3 // indirect
 	github.com/jinzhu/inflection v1.0.0
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
