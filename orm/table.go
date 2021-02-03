@@ -418,6 +418,7 @@ func (t *Table) newField(f reflect.StructField, index []int) *Field {
 		}
 	}
 	if v, ok := pgTag.Options["default"]; ok {
+		var err error
 		v, err = strconv.Unquote(v)
 		if err != nil {
 			field.Default = types.Safe(types.AppendString(nil, v, 1))
