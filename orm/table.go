@@ -14,11 +14,11 @@ import (
 	"github.com/jinzhu/inflection"
 	"github.com/vmihailenco/tagparser"
 
-	"github.com/go-pg/pg/v10/internal"
-	"github.com/go-pg/pg/v10/internal/pool"
-	"github.com/go-pg/pg/v10/pgjson"
-	"github.com/go-pg/pg/v10/types"
-	"github.com/go-pg/zerochecker"
+	"github.com/keyro90/pg/v10/internal"
+	"github.com/keyro90/pg/v10/internal/pool"
+	"github.com/keyro90/pg/v10/pgjson"
+	"github.com/keyro90/pg/v10/types"
+	"github.com/keyro90/zerochecker"
 )
 
 const (
@@ -315,7 +315,7 @@ func (t *Table) newField(f reflect.StructField, index []int) *Field {
 		}
 
 		if tableSpace, ok := pgTag.Options["tablespace"]; ok {
-			s, _ := tagparser.Unquote(tableSpace)
+			s, _ := strconv.Unquote(tableSpace)
 			t.Tablespace = quoteIdent(s)
 		}
 
@@ -327,24 +327,24 @@ func (t *Table) newField(f reflect.StructField, index []int) *Field {
 			}
 		}
 		if ok {
-			s, _ := tagparser.Unquote(partitionBy)
+			s, _ := strconv.Unquote(partitionBy)
 			t.PartitionBy = s
 		}
 
 		if pgTag.Name == "_" {
 			t.setName("")
 		} else if pgTag.Name != "" {
-			s, _ := tagparser.Unquote(pgTag.Name)
+			s, _ := strconv.Unquote(pgTag.Name)
 			t.setName(types.Safe(quoteTableName(s)))
 		}
 
 		if s, ok := pgTag.Options["select"]; ok {
-			s, _ = tagparser.Unquote(s)
+			s, _ = strconv.Unquote(s)
 			t.SQLNameForSelects = types.Safe(quoteTableName(s))
 		}
 
 		if v, ok := pgTag.Options["alias"]; ok {
-			v, _ = tagparser.Unquote(v)
+			v, _ = strconv.Unquote(v)
 			t.Alias = quoteIdent(v)
 		}
 
@@ -409,7 +409,7 @@ func (t *Table) newField(f reflect.StructField, index []int) *Field {
 		// Split the value by comma, this will allow multiple names to be specified.
 		// We can use this to create multiple named unique constraints where a single column
 		// might be included in multiple constraints.
-		v, _ = tagparser.Unquote(v)
+		v, _ = strconv.Unquote(v)
 		for _, uniqueName := range strings.Split(v, ",") {
 			if t.Unique == nil {
 				t.Unique = make(map[string][]*Field)
@@ -418,8 +418,9 @@ func (t *Table) newField(f reflect.StructField, index []int) *Field {
 		}
 	}
 	if v, ok := pgTag.Options["default"]; ok {
-		v, ok = tagparser.Unquote(v)
-		if ok {
+		var err error
+		v, err = strconv.Unquote(v)
+		if err != nil {
 			field.Default = types.Safe(types.AppendString(nil, v, 1))
 		} else {
 			field.Default = types.Safe(v)
@@ -490,7 +491,7 @@ func (t *Table) newField(f reflect.StructField, index []int) *Field {
 	field.isZero = zerochecker.Checker(f.Type)
 
 	if v, ok := pgTag.Options["alias"]; ok {
-		v, _ = tagparser.Unquote(v)
+		v, _ = strconv.Unquote(v)
 		t.FieldsMap[v] = field
 	}
 
@@ -1180,14 +1181,14 @@ func isScanner(typ reflect.Type) bool {
 
 func fieldSQLType(field *Field, pgTag *tagparser.Tag) string {
 	if typ, ok := pgTag.Options["type"]; ok {
-		typ, _ = tagparser.Unquote(typ)
+		typ, _ = strconv.Unquote(typ)
 		field.UserSQLType = typ
 		typ = normalizeSQLType(typ)
 		return typ
 	}
 
 	if typ, ok := pgTag.Options["composite"]; ok {
-		typ, _ = tagparser.Unquote(typ)
+		typ, _ = strconv.Unquote(typ)
 		return typ
 	}
 
